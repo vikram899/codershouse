@@ -1,6 +1,48 @@
-import { Home, Register } from "./pages";
+import { Home, Authenticate, Activate, Rooms } from "./pages";
 import { MainLayout } from "./components";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useLocation,
+} from "react-router-dom";
+import { Navigate } from "react-router-dom";
+
+const isAuth = true;
+const isActivated = true;
+
+const GuestRoute = ({ children, ...rest }) => {
+  const location = useLocation();
+
+  return isAuth ? (
+    <Navigate to="/rooms" state={{ from: location }} {...rest} />
+  ) : (
+    children
+  );
+};
+
+const SemiProtectedRoute = ({ children, ...rest }) => {
+  const location = useLocation();
+
+  return !isAuth ? (
+    <Navigate to="/" state={{ from: location }} />
+  ) : !isActivated ? (
+    children
+  ) : (
+    <Navigate to="/rooms" state={{ from: location }} />
+  );
+};
+
+const ProtectedRoute = ({ children, ...rest }) => {
+  const location = useLocation();
+
+  return !isAuth ? (
+    <Navigate to="/" state={{ from: location }} />
+  ) : !isActivated ? (
+    <Navigate to="/activate" state={{ from: location }} />
+  ) : (
+    children
+  );
+};
 
 const appRouter = createBrowserRouter([
   {
@@ -9,15 +51,35 @@ const appRouter = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: (
+          <GuestRoute>
+            <Home />
+          </GuestRoute>
+        ),
       },
       {
-        path: "/register",
-        element: <Register />,
+        path: "/authenticate",
+        element: (
+          <GuestRoute>
+            <Authenticate />
+          </GuestRoute>
+        ),
       },
       {
-        path: "/login",
-        element: <Register />,
+        path: "/activate",
+        element: (
+          <SemiProtectedRoute>
+            <Activate />
+          </SemiProtectedRoute>
+        ),
+      },
+      {
+        path: "/rooms",
+        element: (
+          <ProtectedRoute>
+            <Rooms />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

@@ -1,3 +1,12 @@
+1) Dynamic component rendering
+2) Redux to manage the steps
+3) Constant strings to support multilinguial
+4) Protected routes and conditional rendering
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

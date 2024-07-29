@@ -1,8 +1,7 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Card, Button } from "../components";
 import {
-  HOMEPAGE_BUTTON_SIGNIN,
   HOMEPAGE_BUTTON_TEXT,
   HOMEPAGE_PARA,
   HOMEPAGE_PRE_SIGNIN,
@@ -13,11 +12,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleOnRegisterclick = () => {
-    navigate("/register");
-  };
-
-  const handleOnLogin = () => {
-    navigate("/login");
+    navigate("/authenticate");
   };
 
   return (
@@ -29,9 +24,6 @@ const Home = () => {
         </div>
         <div className="mt-2  text-blue-500">
           <span className="mr-2">{HOMEPAGE_PRE_SIGNIN}</span>
-          <Link onClick={handleOnLogin} to="">
-            {HOMEPAGE_BUTTON_SIGNIN}
-          </Link>
         </div>
       </Card>
     </div>

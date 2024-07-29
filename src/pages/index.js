@@ -1,3 +1,4 @@
 export { default as Home } from "./Home";
-export { default as Register } from "./Register";
-export { default as Login } from "./Login";
+export { default as Activate } from "./Activate";
+export { default as Authenticate } from "./Authenticate";
+export { default as Rooms } from "./Rooms";
