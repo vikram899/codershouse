@@ -1,4 +1,4 @@
-import { Home } from "./pages";
+import { Home, Register } from "./pages";
 import { MainLayout } from "./components";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -10,6 +10,14 @@ const appRouter = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/login",
+        element: <Register />,
       },
     ],
   },
