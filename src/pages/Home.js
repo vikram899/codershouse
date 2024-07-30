@@ -16,7 +16,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div  className="mt-28">
       <Card title={HOMEPAGE_TITLE} icon={"logo"}>
         <p className="p-2 m-2 text-center">{HOMEPAGE_PARA}</p>
         <div>

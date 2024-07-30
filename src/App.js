@@ -7,8 +7,8 @@ import {
 } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
-const isAuth = true;
-const isActivated = true;
+const isAuth = false;
+const isActivated = false;
 
 const GuestRoute = ({ children, ...rest }) => {
   const location = useLocation();
