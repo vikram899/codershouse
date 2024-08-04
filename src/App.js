@@ -6,13 +6,12 @@ import {
   useLocation,
 } from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const isAuth = false;
-const isActivated = false;
 
 const GuestRoute = ({ children, ...rest }) => {
   const location = useLocation();
-
+  const { isAuth } = useSelector((state) => state.auth);
   return isAuth ? (
     <Navigate to="/rooms" state={{ from: location }} {...rest} />
   ) : (
@@ -22,10 +21,10 @@ const GuestRoute = ({ children, ...rest }) => {
 
 const SemiProtectedRoute = ({ children, ...rest }) => {
   const location = useLocation();
-
+  const { isAuth, user } = useSelector((state) => state.auth);
   return !isAuth ? (
     <Navigate to="/" state={{ from: location }} />
-  ) : !isActivated ? (
+  ) : !user.activated ? (
     children
   ) : (
     <Navigate to="/rooms" state={{ from: location }} />
@@ -34,10 +33,10 @@ const SemiProtectedRoute = ({ children, ...rest }) => {
 
 const ProtectedRoute = ({ children, ...rest }) => {
   const location = useLocation();
-
+  const { isAuth, user } = useSelector((state) => state.auth);
   return !isAuth ? (
     <Navigate to="/" state={{ from: location }} />
-  ) : !isActivated ? (
+  ) : !user.activated ? (
     <Navigate to="/activate" state={{ from: location }} />
   ) : (
     children
