@@ -10,11 +10,21 @@ const Phone = () => {
   const dispatch = useDispatch();
   const inputRef = useRef();
   const handleOnClick = async () => {
-    const { data } = await sendOTP({ phone: "+91" + inputRef.current.value });
-    const { phone, hash } = data;
+    //Check input validation function
+    if (inputRef.current.value.length !== 10) {
+      return;
+    }
 
-    dispatch(setOTP({ phone, hash }));
-    dispatch(increment());
+    try {
+      const { data } = await sendOTP({ phone: "+91" + inputRef.current.value });
+      const { phone, hash } = data;
+
+      dispatch(setOTP({ phone, hash }));
+      dispatch(increment());
+    } catch (error) {
+      console.log(error);
+      return;
+    }
   };
 
   return (

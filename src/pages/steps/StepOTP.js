@@ -11,15 +11,25 @@ const StepOTP = () => {
   const { phone, hash } = useSelector((state) => state.auth.otp);
 
   const handleButtonclick = async () => {
-    const { data } = await verifyOTP({
-      otp: inputRef.current.value,
-      phone,
-      hash,
-    });
 
-    const { user, isAuth } = data;
-    dispatch(setAuth(user));
-    dispatch(increment());
+    //Check input validation function
+    if (inputRef.current.value.length !== 4) {
+      return;
+    }
+
+    try {
+      const { data } = await verifyOTP({
+        otp: inputRef.current.value,
+        phone,
+        hash,
+      });
+  
+      dispatch(setAuth(data));
+      dispatch(increment());
+    } catch (error) {
+      console.log(error);
+      return;
+    }
   };
   return (
     <div className="m-28">

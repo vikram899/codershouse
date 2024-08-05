@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import { useLoadingWithRefresh } from "./hooks";
 
 const GuestRoute = ({ children, ...rest }) => {
   const location = useLocation();
@@ -22,9 +22,10 @@ const GuestRoute = ({ children, ...rest }) => {
 const SemiProtectedRoute = ({ children, ...rest }) => {
   const location = useLocation();
   const { isAuth, user } = useSelector((state) => state.auth);
+  console.log("User", user.activated, isAuth);
   return !isAuth ? (
     <Navigate to="/" state={{ from: location }} />
-  ) : !user.activated ? (
+  ) : !user?.activated ? (
     children
   ) : (
     <Navigate to="/rooms" state={{ from: location }} />
@@ -36,7 +37,7 @@ const ProtectedRoute = ({ children, ...rest }) => {
   const { isAuth, user } = useSelector((state) => state.auth);
   return !isAuth ? (
     <Navigate to="/" state={{ from: location }} />
-  ) : !user.activated ? (
+  ) : !user?.activated ? (
     <Navigate to="/activate" state={{ from: location }} />
   ) : (
     children
@@ -85,7 +86,13 @@ const appRouter = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={appRouter}></RouterProvider>;
+  const { loading } = useLoadingWithRefresh();
+
+  return loading ? (
+    "Loading..."
+  ) : (
+    <RouterProvider router={appRouter}></RouterProvider>
+  );
 }
 
 export default App;

@@ -12,6 +12,11 @@ const StepName = () => {
   const [fullname, setFullname] = useState(name);
 
   const handleButtonclick = async () => {
+    //Check input validation function
+
+    if (fullname.length < 3) {
+      return;
+    }
     dispatch(setName(inputRef.current.value));
     dispatch(increment());
   };
@@ -22,11 +27,7 @@ const StepName = () => {
   return (
     <div className="m-28">
       <Card title="What's your ful name" icon={"smile"} className="border-0">
-        <TextInput
-          value={fullname}
-          inputRef={inputRef}
-          onChange={onChange}
-        />
+        <TextInput value={fullname} inputRef={inputRef} onChange={onChange} />
         <p className="text-center text-sm text-gray-500 m-2">
           Please use real names at codershouse
         </p>
