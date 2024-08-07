@@ -23,7 +23,7 @@ const Rooms = () => {
         <div className="flex">
           <span className="mx-5">All voice rooms</span>
           <div className="flex rounded-lg bg-gray-800">
-            <img src="/images/search.png" className="p-0.5"></img>
+            <img src="/images/search.png" alt="search-image" className="p-0.5"></img>
             <input
               className="bg-transparent border-none p-0.5 outline-none"
               type="text"
@@ -35,7 +35,7 @@ const Rooms = () => {
           onClick={handleStartRoomClick}
           className="flex bg-green-700 rounded-2xl p-1 px-2 hover:bg-green-600"
         >
-          <img src="/images/start-room.png" className="mr-3"></img>
+          <img src="/images/start-room.png" alt="start-room-image" className="mr-3"></img>
           <span>Start a room</span>
         </button>
       </div>

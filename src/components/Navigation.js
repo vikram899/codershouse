@@ -5,23 +5,27 @@ import { logout } from "../http";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuth } from "../redux/authSlice";
 import { setToDefault } from "../redux/stepSlice";
+import toast, { Toaster } from "react-hot-toast";
+import Toast from "../utils/toast";
 
 const Navigation = () => {
   const dispatch = useDispatch();
-  const { user, isAuth } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   const handleLogout = async () => {
     try {
       const { data } = await logout();
       dispatch(setAuth(data));
       dispatch(setToDefault());
+      Toast.successToast("Logged out successfully");
     } catch (error) {
-      console.error("Error while logging out", error);
+      Toast.errorToast(error.response.data.message);
     }
   };
 
   return (
     <div className="mx-auto w-3/4 flex justify-between">
+      <Toaster />
       <div className="inline-block">
         <Link to="/" className="flex m-5">
           <img src="/images/logo.png" alt="logo" />

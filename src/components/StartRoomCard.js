@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import { useState } from "react";
 import { createRoom } from "../http";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import Toast from "../utils/toast";
 
 const StartRoomCard = (props) => {
   const [roomType, setRoomType] = useState("Open");
@@ -9,19 +11,28 @@ const StartRoomCard = (props) => {
   const navigate = useNavigate();
 
   const handleStartRoomClick = async () => {
-    if (userInput.current.value === "") return;
+    if (userInput.current.value === "") {
+      Toast.errorToast("Please enter a room name");
+      return;
+    }
 
-    const { data } = await createRoom({
-      roomType,
-      roomName: userInput.current.value,
-    });
-    const { room } = data;
-    console.log(room);
-    navigate(`/room/${room._id}`);
+    try {
+      const { data } = await createRoom({
+        roomType,
+        roomName: userInput.current.value,
+      });
+      const { room } = data;
+
+      navigate(`/room/${room._id}`);
+      Toast.successToast("Room created successfully");
+    } catch (error) {
+      Toast.errorToast(error.response.data.message);
+    }
   };
 
   return (
     <div className="flex justify-center align-middle fixed top-0 left-0 w-full h-full bg-black bg-opacity-60">
+      <Toaster />
       <div className="w-1/2 max-w-96 bg-gray-800 h-1/2 my-auto p-4 rounded-lg">
         <div className="flex flex-col">
           <button {...props} className="flex justify-end">
@@ -43,7 +54,11 @@ const StartRoomCard = (props) => {
               roomType === "Open" ? "bg-gray-700" : ""
             } rounded-lg p-2 cursor-pointer`}
           >
-            <img className="mx-2" src="/images/globe.png"></img>
+            <img
+              className="mx-2"
+              alt="globe-image"
+              src="/images/globe.png"
+            ></img>
             <span className="mx-5">Open</span>
           </div>
           <div
@@ -54,7 +69,11 @@ const StartRoomCard = (props) => {
               roomType === "Social" ? "bg-gray-700" : ""
             } rounded-lg p-2 cursor-pointer`}
           >
-            <img className="mx-2" src="/images/users.png"></img>
+            <img
+              className="mx-2"
+              alt="social-image"
+              src="/images/users.png"
+            ></img>
             <span className="mx-5">Social</span>
           </div>
           <div
@@ -65,7 +84,11 @@ const StartRoomCard = (props) => {
               roomType === "Closed" ? "bg-gray-700" : ""
             } rounded-lg p-2 cursor-pointer`}
           >
-            <img className="mx-2" src="/images/closed-lock.png"></img>
+            <img
+              className="mx-2"
+              alt="lock-image"
+              src="/images/closed-lock.png"
+            ></img>
             <span className="mx-3">Closed</span>
           </div>
         </div>

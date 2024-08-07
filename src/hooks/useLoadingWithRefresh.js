@@ -15,7 +15,6 @@ const useLoadingWithRefresh = () => {
           withCredentials: true,
         });
 
-        const { user } = data;
         dispatch(setAuth(data));
 
         setLoading(false);
@@ -23,7 +22,6 @@ const useLoadingWithRefresh = () => {
         setLoading(false);
       }
     })();
-
   }, []);
 
   return { loading };

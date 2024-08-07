@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAvatar } from "../../redux/activateSlice";
 import { activate } from "../../http";
 import { setAuth } from "../../redux/authSlice";
+import toast, { Toaster } from "react-hot-toast";
+import Toast from "../../utils/toast";
 
 const StepAvatar = () => {
   const dispatch = useDispatch();
@@ -26,7 +28,7 @@ const StepAvatar = () => {
         dispatch(setAuth(data));
       }
     } catch (error) {
-      console.log(error);
+      Toast.errorToast(error.response.data.message);
       return;
     } finally {
       setLoading(false);
@@ -47,6 +49,7 @@ const StepAvatar = () => {
     "Loading"
   ) : (
     <div className="m-28">
+      <Toaster />
       <Card title={`Welcome, ${name} !`} icon={"monkey"}>
         <p className="text-center text-sm text-gray-500 m-2">
           How's this photo?
