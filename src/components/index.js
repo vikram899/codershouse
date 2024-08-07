@@ -5,3 +5,5 @@ export { default as Button } from "./Button";
 export { default as Phone } from "./Phone";
 export { default as Email } from "./Email";
 export { default as TextInput } from "./TextInput";
+export { default as RoomCard } from "./RoomCard";
+export { default as StartRoomCard } from "./StartRoomCard";

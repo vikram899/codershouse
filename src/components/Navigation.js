@@ -8,7 +8,8 @@ import { setToDefault } from "../redux/stepSlice";
 
 const Navigation = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
+  const { user, isAuth } = useSelector((state) => state.auth);
+
   const handleLogout = async () => {
     try {
       const { data } = await logout();
@@ -31,12 +32,20 @@ const Navigation = () => {
       </div>
       <div className="flex">
         {user && (
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold my-auto h-8 px-2 rounded"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
+          <div className="flex content-center">
+            <h3 className="my-auto mx-2">{`Hi, ${user.name}`}</h3>
+            <img
+              src={user.avatar}
+              alt="avatar"
+              className="h-8 mx-4 w-8 my-auto border-2 border-blue-500 rounded-full"
+            />
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold my-auto h-8 px-2 rounded"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </div>
         )}
       </div>
     </div>

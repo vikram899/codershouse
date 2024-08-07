@@ -51,7 +51,7 @@ const StepAvatar = () => {
         <p className="text-center text-sm text-gray-500 m-2">
           How's this photo?
         </p>
-        <div className="w-28 h-28 border-blue-500 rounded-lg ">
+        <div className="w-28 h-28 border-2 border-blue-500 rounded-full">
           <img src={image} alt="Profile pic" />
         </div>
         <div className="my-2">

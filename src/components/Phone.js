@@ -12,6 +12,7 @@ const Phone = () => {
   const handleOnClick = async () => {
     //Check input validation function
     if (inputRef.current.value.length !== 10) {
+      console.log("Invalid phone number");
       return;
     }
 

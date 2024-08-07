@@ -1,4 +1,4 @@
-import { Home, Authenticate, Activate, Rooms } from "./pages";
+import { Home, Authenticate, Activate, Rooms, Room } from "./pages";
 import { MainLayout } from "./components";
 import {
   createBrowserRouter,
@@ -78,6 +78,14 @@ const appRouter = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Rooms />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/room/:id",
+        element: (
+          <ProtectedRoute>
+            <Room />
           </ProtectedRoute>
         ),
       },
